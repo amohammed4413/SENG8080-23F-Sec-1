@@ -17,6 +17,11 @@ merged_data['Retrieved Date'] = pd.to_datetime(merged_data['Retrieved Date'])
 
 merged_data['Last Appearance'] = merged_data.groupby(['Job Title', 'Company', 'Location'])['Retrieved Date'].transform('max')
 
+#Converting to uppercase before grouping
+merged_data['Job Title'] = merged_data['Job Title'].str.upper()
+merged_data['Company'] = merged_data['Company'].str.upper()
+merged_data['Location'] = merged_data['Location'].str.upper()
+
 # Sort by 'Retrieved Date' in ascending order
 merged_data.sort_values('Retrieved Date', inplace=True)
 
