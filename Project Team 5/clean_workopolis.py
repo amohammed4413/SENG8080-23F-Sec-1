@@ -2,7 +2,7 @@ import pandas as pd
 from datetime import datetime
 import numpy as np
 
-input_csv_filename = r"C:/Users/abdul/SENG8080-23F-Sec-1/Project Team 5/" + "workopolis_2023-11-22.csv"
+input_csv_filename = r"C:/Users/abdul/SENG8080-23F-Sec-1/Project Team 5/" + "workopolis_2023-12-07.csv"
 
 df = pd.read_csv(input_csv_filename)
 
@@ -53,7 +53,7 @@ df[["Min Salary", "Max Salary"]] = df["Estimated Salary"].apply(extract_salary)
 
 #df['Job Age'] = df['Job Age'].apply(calculate_date)
 
-df['Retrieved Date'] = '2023-11-22'
+df['Retrieved Date'] = '2023-12-07'
 column_order = ['Job Title', 'Company', 'Location', 'Min Salary', 'Max Salary','Retrieved Date']#, 'Job Age']
 
 df = df[column_order]

@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-input_csv_filename = r"C:/Users/abdul/SENG8080-23F-Sec-1/Project Team 5/" + "jobbank_2023-11-22.csv"
+input_csv_filename = r"C:/Users/abdul/SENG8080-23F-Sec-1/Project Team 5/" + "jobbank_2023-12-07.csv"
 
 df = pd.read_csv(input_csv_filename)
 
@@ -23,11 +23,15 @@ def extract_salary(salary):
         min_value = parts[0].replace("$", "").replace(",", "")
         max_value = parts[-1].split(" ")[0].replace("$", "").replace(",", "")
     elif "hourly" in salary.lower():
-        hourly_rate = float(salary.split(": $")[1].split(" hourly")[0])
+        hourly_rate = salary.split(": $")[1]
+        if 'to' in hourly_rate:
+            hourly_rate = hourly_rate.split(' to ')[1]
+        hourly_rate = float(hourly_rate.split(" ")[0].replace("$", "").replace(",", ""))
         min_value = str(hourly_rate * 40 * 52)
         max_value = min_value
+    else:
+        return np.nan, np.nan
     
-    min_value = min_value.replace(" annually", "")
     return min_value, max_value
 
 df[["Min Salary", "Max Salary"]] = df["Estimated Salary"].apply(lambda x: pd.Series(extract_salary(x)))
@@ -39,7 +43,7 @@ df.drop(columns=["Estimated Salary"], inplace=True)
 #print(input_csv_filename,"\n",df)
 
 #Add retrieved date column along with date value
-df['Retrieved Date'] = '2023-11-22'
+df['Retrieved Date'] = '2023-12-07'
 column_order = ['Job Title', 'Company', 'Location', 'Min Salary', 'Max Salary','Retrieved Date']#, 'Job Age']
 
 df = df[column_order]
